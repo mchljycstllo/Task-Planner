@@ -5,6 +5,19 @@
 </template>
 
 <style>
+:root {
+  --theme-primary: #E83E8C;
+  --theme-bg-white: #F9FAFC;
+  --theme-gray-100: #F3F4F7;
+  --theme-danger: #df4759;
+  --max-width: 1140px;
+  --content-padding: 0 20px;
+}
+.no-outline:focus {
+  outline: none;
+}
+
+
 html {
   font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, "Helvetica Neue", Arial, sans-serif;

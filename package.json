@@ -41,6 +41,7 @@
     "@nuxtjs/stylelint-module": "^4.1.0",
     "eslint": "^8.30.0",
     "stylelint": "^15.4.0",
-    "stylelint-config-standard-scss": "^8.0.0"
+    "stylelint-config-standard-scss": "^8.0.0",
+    "vee-validate": "^3.4.5"
   }
 }

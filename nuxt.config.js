@@ -39,6 +39,7 @@ export default {
     "~/plugins/toastr.plugin.js",
     "~/plugins/perfect-scrollbar.plugin.js",
     "~/plugins/swal.plugin.js",
+    "~/plugins/vee-validate.js"
   ],
   /*
    ** Nuxt.js dev-modules
@@ -73,6 +74,7 @@ export default {
     /*
      ** You can extend webpack config here
      */
+    transpile: ["vee-validate/dist/rules"],
     extend(config, ctx) {
       config.module.rules.push({
         test: /\.js$/,

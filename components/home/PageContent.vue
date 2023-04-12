@@ -9,7 +9,9 @@
       </p>
     </div>
     <div class="homepage__tasks-input-wrapper">
-      <task-input />
+      <task-input 
+        :page_location="'homepage'"
+      />
     </div>
   </div>
 </template>
@@ -31,3 +33,34 @@
     })
   }
 </script>
+
+<style lang="scss">
+  .homepage {
+    &__page-content {
+      height: 100vh;
+      width: 100%;
+      max-width: var(--max-width);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      padding: var(--content-padding);
+    }
+    &__texts-wrapper {
+      margin: 70px 0;
+    }
+    &__title,
+    &__subtitle {
+      text-align: center;
+    }
+    &__subtitle {
+      max-width: 350px;
+      margin: 0 auto;
+      font-size: 18px;
+    }
+    &__tasks-input-wrapper {
+      width: 100%;
+    }
+  }
+</style>
