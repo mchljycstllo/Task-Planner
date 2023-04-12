@@ -1,4 +1,7 @@
 module.exports = {
+  "extends": [
+    "@nuxtjs/eslint-config-typescript"
+  ],
   root: true,
   env: {
     browser: true,
@@ -20,4 +23,5 @@ module.exports = {
     "vue/multi-word-component-names": "off",
     "vue/no-v-html": "off",
   },
+  
 };
