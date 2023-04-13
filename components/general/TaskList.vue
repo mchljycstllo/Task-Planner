@@ -47,11 +47,20 @@
                   :options="users"
                   :preserve-search="true"
                   :close-on-select="true"
-                  placeholder="Select Assignee"
+                  placeholder="Search Team Member"
+                  :select-label="''"
                   label="name" 
                   track-by="id"
                   @input="onSelectedUser"
                 >
+                <template slot="carret">
+                  <div>
+                    <div class="multiselect__select">
+                      <img src="/images/search.svg" alt="">
+                    </div>
+                  </div>
+                </template>
+
                   <template slot="option" slot-scope="{ option }">
                     <div class="option__desc">
                       <span class="option__avatar">
