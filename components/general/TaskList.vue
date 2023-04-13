@@ -5,6 +5,7 @@
       @start="drag=true" @end="drag=false"
       v-if="tasks.length"
       class="task-list__wrapper"
+      @change="updateDraggableTasks"
     >
       <div
         v-for="(task, key) in tasks"
@@ -135,7 +136,8 @@
     },
     methods: {
       ...mapMutations({
-        SET_MODAL: 'modals/SET_MODAL'
+        SET_MODAL: 'modals/SET_MODAL',
+        SET_TASKS: 'tasks/SET_TASKS'
       }),
       updateTask(task, field) {
         let updated_task = Object.assign({}, task)
@@ -201,6 +203,31 @@
       removeActiveSelect () {
         this.active_multi_select_key = null
         this.selected_user = null
+      },
+      /**
+       * Not sure if there's an api for updating item order on the server
+       */
+      updateDraggableTasks (e) {
+        let cloned_tasks = []
+        let i = -1
+
+        this.tasks.forEach(item => {
+          cloned_tasks.push(item)
+        })
+
+        //console.log(e)
+        let updated_tasks = this.moveArray(cloned_tasks, e.moved.oldIndex, e.moved.newIndex) 
+        this.SET_TASKS(updated_tasks)
+      },
+      moveArray (arr, old_index, new_index) {
+        if (new_index >= arr.length) {
+            let k = new_index - arr.length + 1
+            while (k--) {
+                arr.push(undefined)
+            }
+        }
+        arr.splice(new_index, 0, arr.splice(old_index, 1)[0])
+        return arr; 
       }
     }
   }
