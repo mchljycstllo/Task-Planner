@@ -40,7 +40,9 @@ export default {
     "~/plugins/toastr.plugin.js",
     "~/plugins/perfect-scrollbar.plugin.js",
     "~/plugins/swal.plugin.js",
-    "~/plugins/vee-validate.js"
+    "~/plugins/vee-validate.js",
+    "~/plugins/vue-multiselect",
+    "~/plugins/vue-click-outside"
   ],
   /*
    ** Nuxt.js dev-modules

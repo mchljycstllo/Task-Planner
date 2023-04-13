@@ -19,7 +19,55 @@
             {{ task.title }}
           </span>
         </div>
-        <div class="task-list__operation">
+        <div 
+          class="task-list__operation"
+        >
+          <div>
+            <div class="task-list__assignee">
+              <img  
+                v-if="task.assignee && task.assignee.avatar"
+                :src="task.assignee.avatar" 
+                alt="avatar"
+                class="task-list__item-avatar"
+                @click="setActiveMultiSelect(key, task)"
+              >
+              <img 
+                v-else
+                src="images/add-user.svg" 
+                alt="add-user"
+                class="task-list__item-avatar task-list__item-avatar--add"
+                @click="setActiveMultiSelect(key, task)"
+              >
+              <div 
+                class="task-list__multiselect-wrapper"
+                v-show="key == active_multi_select_key"
+              >
+                <multiselect
+                  v-model="selected_user"
+                  :options="users"
+                  :preserve-search="true"
+                  :close-on-select="true"
+                  placeholder="Select Assignee"
+                  label="name" 
+                  track-by="id"
+                  @input="onSelectedUser"
+                >
+                  <template slot="option" slot-scope="{ option }">
+                    <div class="option__desc">
+                      <span class="option__avatar">
+                        <img 
+                          :src="option.avatar" 
+                          alt="avatar"
+                        >
+                      </span>
+                      <span class="option__value">{{ option.name }}</span>
+                    </div>
+                  </template>
+                </multiselect>
+              </div>
+            </div>
+            
+          </div>
           <img
             class="task-list__icon task-list__icon--star"
             :src="`${task.is_important ? '/images/star-orange.svg' : '/images/star-gray.svg'}`"
@@ -59,9 +107,15 @@
 <script>
   import { mapGetters, mapMutations } from 'vuex'
   export default {
+    data: () => ({
+      active_multi_select_key: null,
+      selected_user: null,
+      task_to_update: null
+    }),
     computed: {
       ...mapGetters({
-        tasks: 'tasks/getTasks'
+        tasks: 'tasks/getTasks',
+        users: 'users/getUsers'
       })
     },
     methods: {
@@ -109,6 +163,33 @@
           message: task.title,
           show_buttons: false
         })
+      },
+      onSelectedUser (event) {
+        console.log(event)
+        console.log(this.task_to_update)
+        let updated_task = Object.assign({}, ({
+          ...this.task_to_update,
+          assignee: event
+        }))
+        this.updateTask(updated_task)
+        setTimeout(() => {
+          this.task_to_update = null
+          this.active_multi_select_key = null
+          this.selected_user = null
+        }, 500)
+      },
+      setActiveMultiSelect (key, task) {
+        console.log(key)
+        this.selected_user = null
+        this.active_multi_select_key = null
+
+        this.active_multi_select_key = key
+        this.task_to_update = task
+      },
+      removeActiveSelect () {
+        console.log('asasd')
+        this.active_multi_select_key = null
+        this.selected_user = null
       }
     }
   }
@@ -143,9 +224,24 @@
         align-items: center;
         max-width: 70%;
       }
+
+      &-avatar {
+        width: 20px;
+        border-radius: 100px;
+        cursor: pointer;
+
+        &--add {
+          border-radius: unset;
+        }
+      };
+    }
+    &__operation {
+      display: flex;
+      align-items: center;
     }
     &__icon {
       width: 20px;
+      margin: 0 5px;
       cursor: pointer;
     }
     &__icon-check {
@@ -154,6 +250,32 @@
     }
     &__icon-uncheck {
       width: 20px;
+    }
+
+    &__assignee {
+      position: relative;
+      margin-right: 10px;
+    }
+
+    &__multiselect-wrapper {
+      position: absolute;
+      z-index: 998;
+      width: 300px;
+      bottom: -70px;
+      left: -50px;
+      padding: 10px 5px;
+      background-color: var(--theme-white);
+      border-radius: 5px;
+      border: 1px solid var(--border-color);
+    }
+
+    .multiselect__tags {
+      width: 100%;
+    }
+    .multiselect__element img {
+      width: 30px;
+      border-radius: 100px;
+      margin-right: 10px;
     }
   }
 </style>

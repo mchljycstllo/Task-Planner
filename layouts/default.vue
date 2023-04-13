@@ -29,7 +29,7 @@
   --theme-danger: #ff4e66;
   --border-color: #E6E6E6;
   --theme-success: #14A44D;
-  --max-width: 1140px;
+  --max-width: 1024px;
   --content-padding: 0 20px;
   --fast-transition: .2s ease-in-out;
 }

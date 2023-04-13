@@ -1,6 +1,8 @@
 <template>
   <div class="page page-tasks">
-    <page-content />
+    <page-content 
+      v-if="loaded"
+    />
   </div>
 </template>
 
@@ -10,10 +12,14 @@
     components: {
       PageContent: () => import('~/components/tasks/PageContent')
     },
+    data: () => ({
+      loaded: false
+    }),
     methods: {
       ...mapActions({
         fetchAllTasks: 'tasks/fetchAllTasks',
-        filterTasks: 'tasks/filterTasks'
+        filterTasks: 'tasks/filterTasks',
+        fetchAllUsers: 'users/fetchAllUsers'
       }),
     },
     computed: {
@@ -22,8 +28,10 @@
         filter_params: 'tasks/getFilterParams'
       })
     },
-    mounted () {
-      this.fetchAllTasks()
+    async mounted () {
+      await this.fetchAllTasks()
+      await this.fetchAllUsers()
+      this.loaded = true
       this.$nuxt.$on('fetch-tasks', () => {
         if (this.filter_params) this.filterTasks(this.filter_params)
         else this.fetchAllTasks()
