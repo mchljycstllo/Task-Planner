@@ -27,16 +27,22 @@
             @click="updateTask(task, 'is_important')"
           >
           <img
-            class="task-list__icon task-list__icon--star"
-            src="/images/delete.svg"
-            alt="delete"
-            @click="deleteTask(task)"
+            class="task-list__icon task-list__icon--eye"
+            src="/images/show-icon.svg"
+            alt="show"
+            @click="showTask(task)"
           >
           <img
             class="task-list__icon task-list__icon--edit"
             src="/images/edit-icon.svg"
             alt="edit"
             @click="editTask(task)"
+          >
+          <img
+            class="task-list__icon task-list__icon--star"
+            src="/images/delete.svg"
+            alt="delete"
+            @click="deleteTask(task)"
           >
         </div>
       </li>
@@ -79,17 +85,29 @@
           opened: true,
           api: `tasks/${task.id}`,
           title: 'Confirmation',
-          type: 'delete',
-          message: `Do you want to delete ${task.title}?`
+          type: 'body',
+          message: `Do you want to delete ${task.title}?`,
+          show_buttons: true
         })
       },
       editTask (task) {
         this.SET_MODAL({
           opened: true,
           api: `tasks/${task.id}`,
-          title: `Edit ${task.title}`,
+          title: `Edit Task`,
           type: 'edit-task',
-          data: task
+          data: task,
+          show_buttons: true
+        })
+      },
+      showTask (task) {
+        this.SET_MODAL({
+          opened: true,
+          title: `Show Task`,
+          type: 'body',
+          data: task,
+          message: task.title,
+          show_buttons: false
         })
       }
     }
@@ -98,6 +116,12 @@
 
 <style lang="scss">
   .task-list {
+    &__title {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;  
+      overflow: hidden;
+    }
     &__item {
       display: flex;
       align-items: center;
@@ -112,6 +136,12 @@
           text-decoration: line-through;
           opacity: 0.8;
         }
+      }
+
+      &-left {
+        display: flex;
+        align-items: center;
+        max-width: 70%;
       }
     }
     &__icon {

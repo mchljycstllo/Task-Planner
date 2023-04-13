@@ -16,15 +16,18 @@
           >
         </div>
         <div class="popup__body">
-          <delete-modal 
-            v-show="modal.type == 'delete'"
+          <body-modal 
+            v-show="modal.type == 'body'"
             :modal="modal"
           />
           <edit-task-modal 
             v-show="modal.type == 'edit-task'"
           />
         </div>
-        <div class="popup__footer">
+        <div 
+          class="popup__footer"
+          v-if="modal.show_buttons"
+        >
           <button 
             @click="closeModal"
             class="popup__button popup__button--cancel"
@@ -67,7 +70,7 @@
       },
       proceed () {
         switch (this.modal.type) {
-          case 'delete':
+          case 'body':
             this.delete()
             break
           case 'edit-task':

@@ -12,7 +12,7 @@
       >
         <validation-provider
           name="task"
-          :rules="{ required: true }"
+          :rules="{ required: true, max: 300 }"
           v-slot="{ errors }"
         >
           <div class="task-input__form-row">

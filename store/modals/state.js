@@ -5,6 +5,7 @@ export default () => ({
     title: 'Temporary Title',
     type: '', // delete, edit-task,
     message: '',
-    data: null //to be filled up later on
+    data: null, //to be filled up later on,
+    show_buttons: true
   }
 })
