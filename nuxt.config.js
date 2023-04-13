@@ -62,7 +62,7 @@ export default {
     "bootstrap-vue/nuxt",
     "@nuxtjs/axios",
     "@nuxtjs/pwa",
-    "vue-sweetalert2/nuxt",
+    "vue-sweetalert2/nuxt"
   ],
 
   sweetalert: {

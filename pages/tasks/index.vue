@@ -40,10 +40,14 @@
       this.$nuxt.$on('execute-search', (filter_params) => {
         this.filterTasks(filter_params)
       })
+      this.$nuxt.$on('display-swal', (swal_payload) => {
+        this.$swal(swal_payload)
+      })
     },
     destroyed () {
       this.$nuxt.$off('fetch-tasks')
       this.$nuxt.$off('execute-search')
+      this.$nuxt.$off('display_swal')
     }
   }
 </script>

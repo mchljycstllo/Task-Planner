@@ -103,6 +103,13 @@
 
             this.$axios.put(`tasks/${this.task.id}`, updated_task)
             .then(response => {
+              this.$nuxt.$emit('display-swal', ({
+                title: 'Success', 
+                type: 'success',
+                icon: 'success',
+                text: 'The task has been updated successfully',
+                timer: 5000
+              }))
               this.$nuxt.$emit('fetch-tasks')
               this.SET_MODAL({
                 opened: false
@@ -115,6 +122,13 @@
           else {
             this.$axios.post('tasks', this.form_data)
             .then(response => {
+              this.$nuxt.$emit('display-swal', ({
+                title: 'Success', 
+                type: 'success',
+                icon: 'success',
+                text: 'Task has been added.',
+                timer: 5000
+              }))
               /**
                * check whether redirect or not
                */

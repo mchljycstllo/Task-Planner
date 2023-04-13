@@ -83,6 +83,13 @@
       delete () {
         this.$axios.delete(`${this.modal.api}`)
         .then(response => {
+          this.$nuxt.$emit('display-swal', ({
+            title: 'Success', 
+            type: 'success',
+            icon: 'success',
+            text: 'The task has been deleted successfully',
+            timer: 5000
+          }))
           this.closeModal()
           setTimeout(() => {
             this.$nuxt.$emit('fetch-tasks')

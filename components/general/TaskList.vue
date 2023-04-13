@@ -149,6 +149,15 @@
         let updated_task = Object.assign({}, task)
         updated_task[field] = !task[field]
 
+        let message = this.messageBuilder(field, updated_task[field])
+        this.$nuxt.$emit('display-swal', ({
+          title: 'Success', 
+          type: 'success',
+          icon: 'success',
+          text: message,
+          timer: 5000
+        }))
+
         this.$axios.put(`tasks/${task.id}`, updated_task)
         .then(response => {
           this.$nuxt.$emit('fetch-tasks')
@@ -156,6 +165,20 @@
         .catch(err => {
           console.log(err)
         })
+      },
+      messageBuilder(field, value) {
+        console.log(field)
+        let message = ''
+        if(field == 'user') message = 'User has been added successfully'
+        else {
+          if (field == 'is_done') {
+            message = value ? 'Task has been marked as done' : 'Task has been marked as undone'
+          }
+          else {
+            message = value ? 'Task has been marked as important' : 'Task has been marked as unimportant'
+          }
+        }
+        return message
       },
       deleteTask(task) {
         this.SET_MODAL({
@@ -192,7 +215,14 @@
           ...this.task_to_update,
           assignee: event
         }))
-        this.updateTask(updated_task)
+        this.$nuxt.$emit('display-swal', ({
+          title: 'Success', 
+          type: 'success',
+          icon: 'success',
+          text: 'A user as been added successfully',
+          timer: 5000
+        }))
+        this.updateTask(updated_task, 'user')
         setTimeout(() => {
           this.task_to_update = null
           this.active_multi_select_key = null
