@@ -15,14 +15,12 @@ export default {
         query += `&${filter}=${value}`
       }
     }
-    console.log(query)
 
     //save filter in vuex
     let new_filter_params = Object.assign({}, filter_params)
     context.commit('SET_FILTER_PARAMS', new_filter_params)
 
     this.$axios.get(`tasks?${query}`).then(tasks => {
-      console.log(tasks.data)
       context.commit('SET_TASKS', tasks.data)
     }).catch(err => {
       console.log(err)

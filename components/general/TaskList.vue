@@ -96,7 +96,7 @@
             @click="editTask(task)"
           >
           <img
-            class="task-list__icon task-list__icon--star"
+            class="task-list__icon task-list__icon--trash"
             src="/images/delete.svg"
             alt="delete"
             @click="deleteTask(task)"
@@ -174,8 +174,6 @@
         })
       },
       onSelectedUser (event) {
-        console.log(event)
-        console.log(this.task_to_update)
         let updated_task = Object.assign({}, ({
           ...this.task_to_update,
           assignee: event
@@ -188,7 +186,6 @@
         }, 500)
       },
       setActiveMultiSelect (key, task) {
-        console.log(key)
         this.selected_user = null
         this.active_multi_select_key = null
 
@@ -196,7 +193,6 @@
         this.task_to_update = task
       },
       removeActiveSelect () {
-        console.log('asasd')
         this.active_multi_select_key = null
         this.selected_user = null
       }
@@ -238,6 +234,10 @@
         width: 20px;
         border-radius: 100px;
         cursor: pointer;
+        transition: var(--fast-transition);
+        &:hover {
+          transform: scale(1.2);
+        }
 
         &--add {
           border-radius: unset;
@@ -252,13 +252,25 @@
       width: 20px;
       margin: 0 5px;
       cursor: pointer;
+      transition: var(--fast-transition);
+      &:hover {
+        transform: scale(1.2);
+      }
+      
+      // &--trash {
+      //   &:hover {
+      //     transform: scale(1.2);
+      //   }
+      // }
     }
     &__icon-check {
       margin-right: 10px;
       width: 20px;
+      cursor: pointer;
     }
     &__icon-uncheck {
       width: 20px;
+      cursor: pointer;
     }
 
     &__assignee {

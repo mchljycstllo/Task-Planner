@@ -16,11 +16,6 @@ import TaskInput from '../TaskInput.vue'
       ...mapGetters({
         modal: 'modals/getModal'
       })
-    },
-    methods: {
-      submit () {
-        console.log('submit')
-      }
     }
   }
 </script>

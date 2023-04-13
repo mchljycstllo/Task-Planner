@@ -84,7 +84,9 @@
         this.$axios.delete(`${this.modal.api}`)
         .then(response => {
           this.closeModal()
-          this.$nuxt.$emit('fetch-tasks')
+          setTimeout(() => {
+            this.$nuxt.$emit('fetch-tasks')
+          }, 200)
         }).catch(err => {
           console.log(err)
         })
@@ -136,6 +138,10 @@
     &__close-button {
       width: 40px;
       cursor: pointer;
+      transition: var(--fast-transition);
+      &:hover {
+        transform: scale(1.2);
+      }
     }
 
     &__main-body {

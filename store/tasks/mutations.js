@@ -9,6 +9,7 @@ export default {
       return item.is_important == true
     })
 
+    state.tasks_count.all = tasks.length
     state.tasks_count.is_done = done_tasks.length
     state.tasks_count.is_important = important_tasks.length
   },
