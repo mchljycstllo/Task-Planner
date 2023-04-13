@@ -1,10 +1,12 @@
 <template>
   <section class="task-list">
-    <ul 
+    <draggable 
+      v-model="tasks"
+      @start="drag=true" @end="drag=false"
       v-if="tasks.length"
       class="task-list__wrapper"
     >
-      <li
+      <div
         v-for="(task, key) in tasks"
         :key="key"
         :class="`task-list__item ${task.is_done && 'task-list__item--done'}`"
@@ -102,8 +104,8 @@
             @click="deleteTask(task)"
           >
         </div>
-      </li>
-    </ul>
+      </div>
+    </draggable>
     <div 
       v-else
       class="task-list__no-result"
@@ -115,7 +117,11 @@
 
 <script>
   import { mapGetters, mapMutations } from 'vuex'
+  import draggable from 'vuedraggable'
   export default {
+    components: {
+      draggable
+    },
     data: () => ({
       active_multi_select_key: null,
       selected_user: null,
