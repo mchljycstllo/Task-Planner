@@ -32,6 +32,12 @@
             alt="delete"
             @click="deleteTask(task)"
           >
+          <img
+            class="task-list__icon task-list__icon--edit"
+            src="/images/edit-icon.svg"
+            alt="edit"
+            @click="editTask(task)"
+          >
         </div>
       </li>
     </ul>
@@ -75,6 +81,15 @@
           title: 'Confirmation',
           type: 'delete',
           message: `Do you want to delete ${task.title}?`
+        })
+      },
+      editTask (task) {
+        this.SET_MODAL({
+          opened: true,
+          api: `tasks/${task.id}`,
+          title: `Edit ${task.title}`,
+          type: 'edit-task',
+          data: task
         })
       }
     }

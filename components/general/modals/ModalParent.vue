@@ -17,11 +17,11 @@
         </div>
         <div class="popup__body">
           <delete-modal 
-            v-if="modal.type == 'delete'"
+            v-show="modal.type == 'delete'"
             :modal="modal"
           />
           <edit-task-modal 
-            v-else-if="modal.type == 'edit-task'"
+            v-show="modal.type == 'edit-task'"
           />
         </div>
         <div class="popup__footer">
@@ -70,7 +70,9 @@
           case 'delete':
             this.delete()
             break
-
+          case 'edit-task':
+            this.update()
+            break
           default:
             break
         }
@@ -85,7 +87,7 @@
         })
       },
       update () {
-
+        this.$nuxt.$emit('proceed-update-task')
       }
     }
   }

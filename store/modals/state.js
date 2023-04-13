@@ -4,6 +4,7 @@ export default () => ({
     api: 'temporary-api',
     title: 'Temporary Title',
     type: '', // delete, edit-task,
-    message: ''
+    message: '',
+    data: null //to be filled up later on
   }
 })

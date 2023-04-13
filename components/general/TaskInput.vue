@@ -41,21 +41,30 @@
         for="input"
         class="task-input__label"
       >
-        Press <b>enter</b> to add task
+        Press <b>enter</b> to {{ edit_task ? 'edit' : 'add' }} task
       </label>
     </validation-observer>
   </div>
 </template>
 
 <script>
+  import { mapMutations } from 'vuex'
   export default {
     props: {
       page_location: {
         type: String,
         default: '' //homepage, tasks-page
+      },
+      edit_task: {
+        type: Boolean,
+        default: false
+      },
+      task: {
+        type: Object,
+        default: () => {}
       }
     },
-    data: () => ({
+    data: ({ task }) => ({
       input: {
         original_state: {
           placeholder: `What's your plan today?`,
@@ -71,28 +80,50 @@
         icon: `/images/plus-icon.svg`
       },
       form_data: {
-        title: ''
+        title: task ? task.title : ''
       },
       show_error: true
     }),
     methods: {
+      ...mapMutations({
+        SET_MODAL: 'modals/SET_MODAL'
+      }),
       submitTask () {
         this.$refs.form.validate().then(success => {
           if (!success) {
             this.show_error = true
             return
           }
-          
-          this.$axios.post('tasks', this.form_data)
-          .then(response => {
-            /**
-             * check whether redirect or not
-             */
-            this.clearForm()
-            this.checkLocation()
-          }).catch(err => {
-            console.log(err)
-          })
+
+          if (this.edit_task) {
+            let updated_task = Object.assign({}, ({
+              ...this.task,
+              title: this.form_data.title
+            }))
+
+            this.$axios.put(`tasks/${this.task.id}`, updated_task)
+            .then(response => {
+              this.$nuxt.$emit('fetch-tasks')
+              this.SET_MODAL({
+                opened: false
+              })
+            })
+            .catch(err => {
+              console.log(err)
+            })
+          }
+          else {
+            this.$axios.post('tasks', this.form_data)
+            .then(response => {
+              /**
+               * check whether redirect or not
+               */
+              this.clearForm()
+              this.checkLocation()
+            }).catch(err => {
+              console.log(err)
+            })
+          }
         })
       },
       clearForm () {
@@ -112,6 +143,14 @@
         if(status == 'focus') this.input_state = this.input.focused_state
         else this.input_state = this.input.original_state
       }
+    },
+    mounted () {
+      this.$nuxt.$on('proceed-update-task', () => {
+        this.submitTask()
+      })
+    },
+    destroyed () {
+      this.$nuxt.$off('proceed-update-task')
     }
   }
 </script>
