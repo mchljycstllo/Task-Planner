@@ -19,7 +19,8 @@ export default {
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: [
-    '~/components/general'
+    '~/components/general',
+    '~/components/general/modals'
   ],
 
   /*

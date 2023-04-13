@@ -34,6 +34,7 @@
         class="tasks-page__search-input no-outline"
         placeholder="Search"
         v-model="filter_params.search"
+        @input="textSearch()"
       >
     </form>
   </section>
@@ -62,7 +63,8 @@
         search: '',
         is_important: false,
         is_done: false
-      }
+      },
+      timer: null
     }),
     computed: {
       ...mapGetters({
@@ -81,6 +83,12 @@
           this.filter_params[item.value] = true
         }
         this.executeSearch ()
+      },
+      textSearch (e) {
+        clearTimeout(this.timer)
+        this.timer = setTimeout(() => {
+            this.executeSearch()
+        }, 1000)
       },
       executeSearch () {
         this.$nuxt.$emit('execute-search', (this.filter_params))

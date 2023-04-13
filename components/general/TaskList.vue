@@ -45,7 +45,7 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
+  import { mapGetters, mapMutations } from 'vuex'
   export default {
     computed: {
       ...mapGetters({
@@ -53,6 +53,9 @@
       })
     },
     methods: {
+      ...mapMutations({
+        SET_MODAL: 'modals/SET_MODAL'
+      }),
       updateTask(task, field) {
         let updated_task = Object.assign({}, task)
         updated_task[field] = !task[field]
@@ -66,11 +69,12 @@
         })
       },
       deleteTask(task) {
-        this.$axios.delete(`tasks/${task.id}`)
-        .then(response => {
-          this.$nuxt.$emit('fetch-tasks')
-        }).catch(err => {
-          console.log(err)
+        this.SET_MODAL({
+          opened: true,
+          api: `tasks/${task.id}`,
+          title: 'Confirmation',
+          type: 'delete',
+          message: `Do you want to delete ${task.title}?`
         })
       }
     }
@@ -95,14 +99,15 @@
         }
       }
     }
+    &__icon {
+      width: 20px;
+      cursor: pointer;
+    }
     &__icon-check {
       margin-right: 10px;
       width: 20px;
     }
     &__icon-uncheck {
-      width: 20px;
-    }
-    &__icon {
       width: 20px;
     }
   }

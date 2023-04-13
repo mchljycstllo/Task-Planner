@@ -1,8 +1,22 @@
 <template>
   <div>
     <nuxt />
+    <modal-parent 
+      v-if="modal.opened"
+    />
   </div>
 </template>
+
+<script>
+  import { mapGetters } from 'vuex'
+  export default {
+    computed: {
+      ...mapGetters({
+        modal: 'modals/getModal'
+      })
+    }
+  }
+</script>
 
 <style>
 :root {
@@ -12,8 +26,9 @@
   --theme-gray-100: #F3F4F7;
   --theme-gray-200: #E8E9EE;
   --theme-gray-900: #3A3B45;
-  --theme-danger: #df4759;
+  --theme-danger: #ff4e66;
   --border-color: #E6E6E6;
+  --theme-success: #14A44D;
   --max-width: 1140px;
   --content-padding: 0 20px;
   --fast-transition: .2s ease-in-out;
