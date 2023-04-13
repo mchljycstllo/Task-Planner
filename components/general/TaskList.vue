@@ -45,6 +45,12 @@
                 class="task-list__multiselect-wrapper"
                 v-show="key == active_multi_select_key"
               >
+                <img 
+                  src="/images/close-solid.svg" 
+                  alt=""
+                  class="task-list__close-users"
+                  @click="removeActiveSelect()"
+                >
                 <multiselect
                   v-model="selected_user"
                   :options="users"
@@ -100,7 +106,7 @@
           >
           <img
             class="task-list__icon task-list__icon--trash"
-            src="/images/delete.svg"
+            src="/images/trash-gray.svg"
             alt="delete"
             @click="deleteTask(task)"
           >
@@ -241,6 +247,18 @@
       -webkit-box-orient: vertical;  
       overflow: hidden;
     }
+    &__close-users {
+      position: absolute;
+      z-index: 1000;
+      width: 25px;
+      top: -9px;
+      right: -10px;
+      transition: var(--fast-transition);
+      cursor: pointer;
+      &:hover {
+        transform: scale(1.2);
+      }
+    }
     &__item {
       display: flex;
       align-items: center;
@@ -289,12 +307,6 @@
       &:hover {
         transform: scale(1.2);
       }
-      
-      // &--trash {
-      //   &:hover {
-      //     transform: scale(1.2);
-      //   }
-      // }
     }
     &__icon-check {
       margin-right: 10px;
