@@ -3,10 +3,10 @@
     <section class="tasks-page__header-wrapper">
       <Header />
     </section>
-    <section class="tasks__task-list-wrapper">
+    <section class="tasks-page__task-list-wrapper">
       <task-list />
     </section>
-    <section class="tasks__task-input-wrapper">
+    <section class="tasks-page__task-input-wrapper">
       <task-input 
         :page_location="'tasks-page'"
       />
@@ -24,3 +24,11 @@
     
   }
 </script>
+
+<style lang="scss">
+  .tasks-page {
+    &__task-input-wrapper {
+      margin: 40px 0 20px;
+    }
+  }
+</style>

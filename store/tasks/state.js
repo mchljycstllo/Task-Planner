@@ -1,7 +1,8 @@
 export default () => ({
   tasks: [],
+  filter_params: {},
   tasks_count: {
-    done: 0,
-    important: 0
+    is_done: 0,
+    is_important: 0
   }
 })

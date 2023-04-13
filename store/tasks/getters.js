@@ -4,5 +4,8 @@ export default {
   },
   getTasksCount: (state) => {
     return state.tasks_count
-  }
+  },
+  getFilterParams: (state => {
+    return state.filter_params
+  })
 }

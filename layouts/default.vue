@@ -7,11 +7,16 @@
 <style>
 :root {
   --theme-primary: #E83E8C;
+  --theme-white: #FFF;
   --theme-bg-white: #F9FAFC;
   --theme-gray-100: #F3F4F7;
+  --theme-gray-200: #E8E9EE;
+  --theme-gray-900: #3A3B45;
   --theme-danger: #df4759;
+  --border-color: #E6E6E6;
   --max-width: 1140px;
   --content-padding: 0 20px;
+  --fast-transition: .2s ease-in-out;
 }
 .no-outline:focus {
   outline: none;
@@ -35,6 +40,16 @@ html {
 *:after {
   box-sizing: border-box;
   margin: 0;
+}
+
+ul {
+  padding: 0;
+  list-style-type: none;
+}
+
+a,
+a:hover {
+  text-decoration: none;
 }
 
 .button--green {
