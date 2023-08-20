@@ -41,7 +41,7 @@
         for="input"
         class="task-input__label"
       >
-        Press <b>enter</b> to {{ edit_task ? 'edit' : 'add' }} task
+        Press <b @click="submitTask()" class="hover">enter</b> to {{ edit_task ? 'edit' : 'add' }} task
       </label>
     </validation-observer>
   </div>

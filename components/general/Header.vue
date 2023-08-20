@@ -6,7 +6,12 @@
         Task Planner
       </h2>
     </nuxt-link>
-    <ul class="tasks-page__filter-wrapper">
+    <ul v-if="isHome">
+      <li>
+        <nuxt-link to="/tasks" class="tasks-page__tasks-link"> Tasks </nuxt-link>
+      </li>
+    </ul>
+    <ul class="tasks-page__filter-wrapper" v-if="!isHome">
       <li
         v-for="(item, key) in search_items"
         :key="key"
@@ -23,6 +28,7 @@
     <form 
       class="tasks-page__search-wrapper"
       @submit.prevent="executeSearch()"
+      v-if="!isHome"
     >
       <img 
         class="tasks-page__search-icon"
@@ -43,6 +49,12 @@
 <script>
   import { mapGetters } from 'vuex'
   export default {
+    props: {
+      isHome: {
+        type: Boolean,
+        default: false
+      }
+    },
     data: () => ({
       search_items: [
         {
@@ -107,6 +119,10 @@
         align-items: center;
         justify-content: space-between;
         margin-bottom: 20px;
+
+        ul {
+          margin-bottom: 8px;
+        }
       }
       &-title {
         font-size: 32px;
@@ -116,6 +132,10 @@
           color: var(--theme-primary);
         }
       }
+    }
+    &__tasks-link {
+      font-size: 32px;
+      color: var(--theme-primary);
     }
     &__filter {
       &-wrapper {

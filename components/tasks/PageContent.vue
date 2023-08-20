@@ -19,7 +19,7 @@
     components: {
       TaskList: () => import('~/components/general/TaskList'),
       TaskInput: () => import('~/components/general/TaskInput'),
-      Header: () => import('~/components/tasks/Header')
+      Header: () => import('~/components/general/Header')
     }
     
   }

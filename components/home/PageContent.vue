@@ -1,5 +1,12 @@
 <template>
   <div class="homepage__page-content">
+    <section class="homepage__header-wrapper">
+      <div class="homepage__header-wrapper__content">
+        <Header 
+          :isHome="true"
+        />
+      </div>
+    </section>
     <div class="homepage__texts-wrapper">
       <h3 class="homepage__title">
         {{ title }}
@@ -19,7 +26,8 @@
 <script>
   export default {
     components: {
-      TaskInput: () => import('~/components/general/TaskInput')
+      TaskInput: () => import('~/components/general/TaskInput'),
+      Header: () => import('~/components/general/Header')
     },
     props: {
       tasks: {
@@ -47,6 +55,16 @@
       margin: 0 auto;
       padding: var(--content-padding);
     }
+    &__header-wrapper {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 100%;
+      &__content {
+        max-width: var(--max-width);
+        margin: 0 auto;
+      }
+    }
     &__texts-wrapper {
       margin: 70px 0;
     }
@@ -61,6 +79,14 @@
     }
     &__tasks-input-wrapper {
       width: 100%;
+    }
+
+    @media(max-width: 980px) {
+      &__header-wrapper {
+        &__content {
+          padding: 0 20px;
+        }
+      }
     }
   }
 </style>

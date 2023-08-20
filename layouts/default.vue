@@ -37,6 +37,10 @@
   outline: none;
 }
 
+.hover {
+  cursor: pointer;
+}
+
 
 html {
   font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI",
